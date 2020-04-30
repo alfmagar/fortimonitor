@@ -1,0 +1,22 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          Fortinet VPN Monitor
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: Monitors SSL VPN tunnel
+### END INIT INFO
+while :; do
+   ping -c 1 -w 3 <VPN Test Endpoint IP>; echo $? > /tmp/ping.status
+   status=$(cat /tmp/ping.status)
+   if [ "$status" == '1' ] 
+   then
+	   pkill -f forticlient
+	   pkill -f fortivpn
+	   service fortivpn restart
+	   echo "Fortinet VPN Service restarted due to broken tunnel at $(date)" >> /var/log/fortimonitor.log
+	   sleep 10
+   fi
+   sleep 10
+done

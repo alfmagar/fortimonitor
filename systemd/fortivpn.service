@@ -1,0 +1,9 @@
+[Unit]
+Description=Fortinet VPN Client Service
+
+[Service]
+ExecStart=/usr/bin/fortivpn
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
