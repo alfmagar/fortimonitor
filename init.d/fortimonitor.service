@@ -1,0 +1,9 @@
+[Unit]
+Description=Fortinet VPN Monitor Service
+
+[Service]
+ExecStart=/usr/bin/fortimonitor
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
